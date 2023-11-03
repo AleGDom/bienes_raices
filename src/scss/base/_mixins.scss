@@ -24,7 +24,6 @@
 
 @mixin boton($color, $display:inline-block){
     background-color: $color;
-    display: inline-block;
     color: $blanco;
     font-weight: $bold;
     text-decoration: none;
