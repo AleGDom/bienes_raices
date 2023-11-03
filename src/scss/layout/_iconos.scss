@@ -1,0 +1,15 @@
+.iconos-nosotros{
+    @include tablet{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        column-gap: 1rem;
+    }
+}
+
+.icono{
+    text-align: center;
+    img{
+        width: 10rem;
+        display: inline;
+    }
+}
