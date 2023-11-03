@@ -22,7 +22,9 @@
 
     
 }
-
+.imagen-entrada{
+    margin-bottom: 2rem;
+}
 .texto-entrada{
     h4{
         margin: 0;
@@ -38,10 +40,8 @@
     a{
         color: $negro;
     }
-    p{
-
-    }
+    
     span{
-
+        color: $amarillo;
     }
 }
