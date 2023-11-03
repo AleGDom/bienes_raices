@@ -1,0 +1,9 @@
+.footer{
+    background-color: $grisOscuro;
+    padding: calc($separacion / 2) 0; 
+
+    .copyright{
+        text-align: center;
+        color: $blanco;
+    }
+}

@@ -1,0 +1,22 @@
+.barra{
+    padding-top:3rem;
+    @include tablet{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+.navegacion{
+    @include tablet{
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+    a{
+        color: $blanco;
+        font-size: 1.8rem;
+        display: block;
+        text-align: center;
+        
+        
+    }
+}
