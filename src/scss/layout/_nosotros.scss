@@ -1,0 +1,14 @@
+.contenido-nosotros{
+    @include tablet{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        column-gap: 3rem;
+    }
+    
+}
+
+.nosotros-titulo{
+    font-weight: 700;
+    margin-bottom: 5rem;
+}
+
