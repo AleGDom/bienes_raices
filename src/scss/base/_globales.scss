@@ -15,8 +15,9 @@ p {
     font-size: 2rem;
 }
 .contenedor {
-    width: 95%;
-    max-width: 120rem;
+    // width: 95%;
+    // max-width: 120rem;
+    width: min(120rem,95%);
     margin: 0 auto;
 }
 
