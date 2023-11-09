@@ -9,6 +9,10 @@
 .anuncio{
     background-color: lighten($color: $gris, $amount: 5);
     border: 1px solid darken($color: $gris, $amount: 10);
+    margin-bottom: 3rem;
+    @include tablet{
+        margin-bottom: 0;
+    }
 
     h3,p{
         margin: 0;

@@ -1,0 +1,36 @@
+.dark-mode{
+    background-color: darken($color: $grisOscuro, $amount: 10);
+    p{
+        color: $blanco;
+    }
+    a,h2,h3,h4{
+        color: $gris;
+    }
+
+    .anuncio{
+        background-color: $grisOscuro;
+    }
+
+    .precio{
+        color: $verde;
+    }
+
+    .iconos-caracteristicas{
+        img{
+            filter: invert(10);
+        }
+    }
+
+    .formulario{
+        label,legend,p{
+            color: $blanco;
+        }
+
+        input:not([type="submit"]),textarea,select{
+            background-color: $grisOscuro;
+            color: $blanco;
+        }
+
+        
+    }
+}

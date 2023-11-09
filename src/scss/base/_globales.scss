@@ -9,6 +9,7 @@ body {
     font-family: $fuente_principal;
     font-size: 1.6rem;
     line-height: 1.8;
+    transition: background-color .3s linear;
 }
 p {
     color: $negro;
