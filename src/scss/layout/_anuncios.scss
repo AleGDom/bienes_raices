@@ -10,6 +10,13 @@
     background-color: lighten($color: $gris, $amount: 5);
     border: 1px solid darken($color: $gris, $amount: 10);
     margin-bottom: 3rem;
+    overflow: hidden;
+    img{
+        transition: all .5s;
+    }
+     img:hover{
+        transform: scale(1.2);
+    }
     @include tablet{
         margin-bottom: 0;
     }

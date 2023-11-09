@@ -10,7 +10,7 @@
     visibility: hidden;
     opacity: 0;
     height: 0;
-    transition: visibility .3s ease-in-out, opacity 0.5s linear;
+    transition: visibility .1s ease-in-out, opacity 0.1s linear,height 0.1s linear;
     @include tablet{
         display: flex;
         gap: 2rem;
