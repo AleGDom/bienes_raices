@@ -1,39 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preload" href="build/css/app.css" as="style">
-    <link rel="stylesheet" href="build/css/app.css">
-    <title>Bienes Raices</title>
-</head>
-<body>
+<?php 
+    require 'includes/funciones.php';
 
-    <header class="header">
-        <div class="contenedor contenido-header">
-            <div class="barra">
-                <a href="index.html">
-                    <img src="build/img/logo.svg" alt="logo del sitio">
-                </a>
+    incluirTemplate('header');
 
-                <div class="mobile-menu">
-                    <img src="build/img/barras.svg" alt="">
-                </div>
-
-                <div class="derecha">
-                    <img class="dark-mode-boton" src="build/img/dark-mode.svg" alt="">
-                    <nav class="navegacion">
-                        <a href="nosotros.html">Nosotros</a>
-                        <a href="anuncios.html">Anuncios</a>
-                        <a href="blog.html">Blog</a>
-                        <a href="contacto.html">Contacto</a>
-                    </nav>
-                </div>
-            </div> <!--CIERRE DE BARRA-->
-
-            <!-- <h1>Venta casas y departamentos exclusivos de lujo</h1> -->
-        </div>
-    </header>
+?>
     <main class="contenedor seccion">
         <h2>Conoce Sobre Nosotros</h2>
         <div class="contenido-nosotros">
@@ -72,18 +42,10 @@
         </div>
     </section>
 
-    <footer class="footer seccion">
-        <div class="contenedor">
-            <nav class="navegacion">
-                <a href="nosotros.html">Nosotros</a>
-                <a href="anuncios.html">Anuncios</a>
-                <a href="blog.html">Blog</a>
-                <a href="contacto.html">Contacto</a>
-            </nav>
-        </div>
-        <p class="copyright">Todos los derechos reservados 2023 &copy;</p>
-    </footer>
+    <?php 
+        incluirTemplate('footer'); 
+    ?>
     
-    <script src="build/js/bundle.min.js"></script>
+    
 </body>
 </html>

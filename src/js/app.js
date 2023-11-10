@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 function comprobar(){
-
+    
     if(localStorage.getItem('darkMode')==='on'){
         document.body.classList.add("dark-mode");
     } else{
