@@ -33,8 +33,8 @@
         if(!$precio){
             $errores[]="Debes escribir el precio";
         }
-        if(!$descripcion){
-            $errores[]="Debes escribir la descripcion";
+        if(strlen($descripcion)<50){
+            $errores[]="Debes escribir una descripcion de al menos 50 caracteres";
         }
         if(!$habitaciones){
             $errores[]="Debes escribir la cantidad de habitaciones";
