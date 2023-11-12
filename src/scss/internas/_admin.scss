@@ -9,4 +9,23 @@
     &.error{
         background-color: $rojo;
     }
+    &.exito{
+        background-color: $verde;
+    }
+}
+
+table.propiedades{
+    margin-top: 3rem;
+    width: 100%;
+    th{
+        background-color: $verde;
+        color: $blanco;
+    }
+    td{
+        text-align: center;
+    }
+    img{
+        width: 10rem;
+        margin: 0 auto;
+    }
 }

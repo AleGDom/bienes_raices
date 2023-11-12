@@ -5,6 +5,14 @@
     @include boton($amarillo);
 }
 
+.boton-rojo{
+    @include boton(red,block);
+}
+
 .boton-verde{
     @include boton($verde);
+}
+
+.boton-verde-block{
+    @include boton($verde,block);
 }
