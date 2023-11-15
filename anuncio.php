@@ -1,41 +1,55 @@
 <?php 
+//  var_dump($_GET);
+    require '/apache/htdocs/bienes_raices/includes/config/database.php';
+    $db=conectarDB();
+    $id=$_GET['id'];
+    $id=filter_var($id,FILTER_VALIDATE_INT);
+    if(!$id){
+        header('Location: /bienes_raices/index.php');
+    }
+    $query="SELECT * FROM propiedades WHERE id=$id";
+    $propiedad = mysqli_query($db,$query);
+    if($propiedad->num_rows===0){
+        header('Location: /bienes_raices/index.php');
+    }
+    $info=mysqli_fetch_assoc($propiedad);
     require 'includes/funciones.php';
 
     incluirTemplate('header');
+   
 
 ?>
     <main class="contenedor seccion contenido-centrado">
-        <h2>Casa en venta frente al bosque</h2>
-        <picture>
-            <source srcset="build/img/anuncio5.webp">
-            <img loading="lazy" src="build/img/anuncio5.jpg" alt="Anuncio">
-        </picture>
+        <h2><?php echo $info['titulo']; ?></h2>
+        
+            <img loading="lazy" src="/bienes_raices/imagenes/<?php echo $info['imagen'] ?>" alt="Anuncio">
+       
         <div class="resumen-propiedad">
-            <p class="precio">$3,000,000</p>
+            <p class="precio">$<?php echo $info['precio'] ?></p>
             <ul class="iconos-caracteristicas">
                 <li>
                     <img loading="lazy" src="build/img/icono_wc.svg" alt="icono wc">
-                    <p>3</p>
+                    <p><?php echo $info['wc'] ?></p>
                 </li>
                 <li>
                     <img loading="lazy" src="build/img/icono_estacionamiento.svg" alt="icono auto">
-                    <p>3</p>
+                    <p><?php echo $info['estacionamiento'] ?></p>
                 </li>
                 <li>
                     <img loading="lazy" src="build/img/icono_dormitorio.svg" alt="icono dormitorio">
-                    <p>4</p>
+                    <p><?php echo $info['habitaciones'] ?></p>
                 </li>
 
             </ul>
 
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta expedita quaerat quod repellendus non ipsam in placeat, totam dolores. Minus quia quos voluptatem repellendus nisi, sequi dolorem cupiditate asperiores enim. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur cupiditate et magnam voluptatibus alias aspernatur quod, temporibus commodi! Illum aliquam aliquid rerum ipsum. Culpa aliquam, deleniti pariatur laudantium quisquam nisi.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto enim sunt dolorum natus. Tempore neque nisi provident ipsum minima consectetur veniam ad aut debitis iusto? Reprehenderit exercitationem quos illo quasi. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus id necessitatibus dignissimos tempore ad impedit consectetur, animi est explicabo harum consequuntur adipisci quis commodi reiciendis libero eligendi! Omnis, quos quis.</p>
+            <p><?php echo $info['descripcion'] ?></p>
             
         </div>
         </div>
     </main>
 
     <?php 
+        mysqli_close($db);
         incluirTemplate('footer'); 
     ?>
     
