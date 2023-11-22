@@ -1,13 +1,13 @@
 <?php 
+    //AUTHENTICATE
+    require '../includes/funciones.php';
 
-    session_start();
-
-    $auth=$_SESSION['login'];
+    $auth=isAuth();
 
     if(!$auth){
-       header('Location: /bienes_raices/index.php');
+        header('Location: /bienes_raices/index.php');
     }
-
+    //CONECT DATABASE
     require '../includes/config/database.php';
     $db=conectarDB();
 
@@ -41,7 +41,7 @@
             }
         }
     }
-    require '../includes/funciones.php';
+    
     incluirTemplate('header');
 
     

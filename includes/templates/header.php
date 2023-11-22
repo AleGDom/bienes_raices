@@ -1,4 +1,15 @@
 <?php 
+    
+    if(!isset($_SESSION)){
+        session_start();
+    }
+    
+        
+        //var_dump($_SESSION);
+
+    $auth=$_SESSION['login'] ?? false;
+    
+
 
 
 ?>
@@ -30,6 +41,9 @@
                         <a href="/bienes_raices/anuncios.php">Anuncios</a>
                         <a href="/bienes_raices/blog.php">Blog</a>
                         <a href="/bienes_raices/contacto.php">Contacto</a>
+                        <?php if($auth): ?>
+                            <a href="/bienes_raices/cerrar_sesion.php">Cerrar Sesion</a>
+                        <?php endif ?>
                     </nav>
                 </div>
                 

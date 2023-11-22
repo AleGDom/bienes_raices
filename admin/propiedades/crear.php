@@ -1,4 +1,12 @@
 <?php 
+
+require '../../includes/funciones.php';
+
+$auth=isAuth();
+
+if(!$auth){
+    header('Location: /bienes_raices/index.php');
+ }
 //BASE DE DATOS
     require '../../includes/config/database.php';
     $db=conectarDB();
@@ -104,7 +112,7 @@
     }
     
 
-    require '../../includes/funciones.php';
+    
     incluirTemplate('header');
 ?>
 <main class="contenedor seccion">

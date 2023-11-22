@@ -24,6 +24,9 @@
         font-size: 1.8rem;
         display: block;
         text-align: center;
+        &:hover{
+            color: $verde;
+        }
         
         
     }
