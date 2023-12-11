@@ -1,14 +1,20 @@
 <?php 
     //AUTHENTICATE
-    require '../includes/funciones.php';
+    require '../includes/app.php';
+
+    use App\Propiedad;
+    
+
+    $propiedad=new Propiedad();
 
     $auth=isAuth();
 
     if(!$auth){
-        header('Location: /bienes_raices/index.php');
+        header('Location: /bienes_raices
+        /index.php');
     }
     //CONECT DATABASE
-    require '../includes/config/database.php';
+    
     $db=conectarDB();
 
     

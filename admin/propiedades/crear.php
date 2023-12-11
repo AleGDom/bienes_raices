@@ -1,107 +1,61 @@
 <?php 
+require '../../includes/app.php';
 
-require '../../includes/funciones.php';
+use App\Propiedad;
+use Intervention\Image\ImageManagerStatic as Image;
 
-$auth=isAuth();
 
-if(!$auth){
-    header('Location: /bienes_raices/index.php');
- }
+
+//
+
+isAuth();
+
+
 //BASE DE DATOS
-    require '../../includes/config/database.php';
+    $errores=Propiedad::getErrores();
     $db=conectarDB();
-    //var_dump($db);
-    $errores=[];
+   
+ 
     $queryVendedores="SELECT * FROM vendedores";
     $vendedores=mysqli_query($db,$queryVendedores);
-    //var_dump(mysqli_fetch_assoc($vendedores));
+    debuguear(count($errores));
+    
    
 
     if($_SERVER["REQUEST_METHOD"]==="POST"){
-        //  echo "<pre>";
-        //  var_dump($_POST);
-        //  echo "</pre>";
-        //  echo "<pre>";
-        //  var_dump($_FILES);
-        //  echo "</pre>";
-        
-        $titulo= mysqli_real_escape_string($db, $_POST["titulo"]);
-        $precio= mysqli_real_escape_string($db,$_POST["precio"]);
-        $imagen;
-        $descripcion= mysqli_real_escape_string($db,$_POST["descripcion"]);
-
-        $habitaciones= mysqli_real_escape_string($db,$_POST["habitaciones"]);
-        $wc= mysqli_real_escape_string($db, $_POST["wc"]);
-        $estacionamiento= mysqli_real_escape_string($db,$_POST["estacionamiento"]);
-        $vendedoresId= mysqli_real_escape_string($db,$_POST["vendedor"]);
-        $creado = date('Y/m/d');
-
-        //Asignar files a una variable
-        $imagen=$_FILES["imagen"];
        
-        // echo "<pre>";
-        //  var_dump($imagen['name']);
-        //  echo "</pre>";
-        //Validar campos vacios
-        if(!$titulo){
-            $errores[]="Debes escribir un titulo";
-        }
-        if(!$precio){
-            $errores[]="Debes escribir el precio";
-        }
-        if(strlen($descripcion)<50){
-            $errores[]="Debes escribir una descripcion de al menos 50 caracteres";
-        }
-        if(!$habitaciones){
-            $errores[]="Debes escribir la cantidad de habitaciones";
-        }
-        if(!$wc){
-            $errores[]="Debes escribir la cantidad de wc";
-        }
-        if(!$estacionamiento){
-            $errores[]="Debes escribir la cantidad de estacionamientos";
-        }
-        if(!$vendedoresId){
-            $errores[]="Debes seleccionar el vendedor";
-        }
-
-        if(!$imagen['name'] || $imagen['error']){
-            $errores[]='La imagen es obligatoria';
-        }
-
-        //Validar por tamaño (1000kb maximo)
-        $medida = 1000 * 1000;
-
-        if($imagen['size']>$medida){
-            $errores[]="La imagen es demasiado pesada";
-        }
+        $propiedad =  new Propiedad($_POST);
+        $errores=$propiedad->validacion();
         
-        // echo "<pre>";
-        // var_dump($errores);
-        // echo "</pre>";
-
+            //generar nombre unico
+        $nombreImagen=md5(uniqid(rand(),true)).".jpg";
         
-
+        
+    
+        
         if(empty($errores)){
+            $propiedad->guardar();
             //SUBIDA DE ARCHIVOS
                 //crear carpeta
-            $carpetaImagenes= '../../imagenes/';
+            $carpetaImagenes= CARPETA_IMAGENES;
             if(!is_dir($carpetaImagenes)){
                 mkdir($carpetaImagenes);
             }
 
-            //generar nombre unico
-
-            $nombreImagen=md5(uniqid(rand(),true)).".jpg";
 
             
-            //Subir la imagen
-            move_uploaded_file($imagen['tmp_name'],$carpetaImagenes.$nombreImagen);
+
+            //Realiza una intervention  a la imagen
+            $image=Image::make($_FILES['imagen']['tmp_name'])->fit(800,800);
+            //Subir la imagen al servidor
+
+            $image->save();
+
+
+            $propiedad->setImagen($nombreImagen);
             
-            $query= " INSERT INTO propiedades (titulo, precio, imagen, descripcion,habitaciones,wc,estacionamiento, creado, vendedores_id) VALUES ('$titulo','$precio', '$nombreImagen','$descripcion','$habitaciones','$wc', '$estacionamiento','$creado', '$vendedoresId') ";
             
             
-        $resultado = mysqli_query($db,$query);
 
         if($resultado){
             header('Location: /bienes_raices/admin/index.php?resultado=1');
@@ -149,7 +103,7 @@ if(!$auth){
 
         <fieldset>
             <legend>Vendedor</legend>
-            <select name="vendedor" id="vendedor">
+            <select name="vendedores_id" id="vendedor">
                 <option value="" selected disabled>-- Selecciona --</option>
                 <?php while($row = mysqli_fetch_assoc($vendedores)) { ?>
                     <option value=" <?php echo $row['id'] ?>"  <?php echo $vendedoresId==$row['id'] ? "selected" : ''?> > <?php echo $row['nombre'].' '.$row['apellido']; ?> </option>

@@ -1,6 +1,6 @@
 <?php 
 //  var_dump($_GET);
-    require '/apache/htdocs/bienes_raices/includes/config/database.php';
+    require 'includes/app.php';
     $db=conectarDB();
     $id=$_GET['id'];
     $id=filter_var($id,FILTER_VALIDATE_INT);
@@ -13,8 +13,7 @@
         header('Location: /bienes_raices/index.php');
     }
     $info=mysqli_fetch_assoc($propiedad);
-    require 'includes/funciones.php';
-
+    
     incluirTemplate('header');
    
 

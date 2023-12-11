@@ -2,7 +2,7 @@
 
 function conectarDB() : mysqli{
     try {
-        $db=mysqli_connect("localhost","root","root","bienesraices_crud");
+        $db= new mysqli("localhost","root","root","bienesraices_crud");
         //echo "se conecto \t";
         return $db;
     } catch (\Throwable $th) {

@@ -1,0 +1,19 @@
+{
+    "name": "alexi/bienes_raices",
+    "description": "Creando un proyecto con programacion Orientada a Objetos",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Alexis Dominguez",
+            "email": "alexis2033ag@outlook.com"
+        }
+    ],
+    "require": {
+        "intervention/image": "^2.7"
+    },
+    "autoload":{
+        "psr-4":{
+            "App\\" : "./clases"
+        }
+    }
+}

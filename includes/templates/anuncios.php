@@ -1,6 +1,6 @@
 <?php 
 
-     require '/apache/htdocs/bienes_raices/includes/config/database.php';
+     
      $db=conectarDB();
 
      echo "se conecto";
