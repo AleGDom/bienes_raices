@@ -39,16 +39,16 @@ class Propiedad{
     public function guardar(){
       
         $atributos=$this->sanitizar();
-        debuguear($atributos);
+        //debuguear($atributos);
         $query=" INSERT INTO propiedades (";
         $query.=join(', ',array_keys($atributos));
         $query.=" ) VALUES (' ";
         $query.=join("', '",array_values($atributos));
         $query.=" ') ";
      
-        debuguear($query);
+        //debuguear($query);
         $resultado=self::$db->query($query);
-        debuguear($resultado);
+        return $resultado;
     }
     public function atributos(){
         $atributos=[];
@@ -91,19 +91,13 @@ class Propiedad{
             self::$errores[]="Debes escribir la cantidad de estacionamientos";
         }
         if(!$this->vendedores_id){
-            $errores[]="Debes seleccionar el vendedor";
+            self::$errores[]="Debes seleccionar el vendedor";
         }
 
-        // if(!$imagen['name'] || $imagen['error']){
-        //     $errores[]='La imagen es obligatoria';
-        // }
-
-        // //Validar por tamaño (1000kb maximo)
-        // $medida = 1000 * 1000;
-
-        // if($imagen['size']>$medida){
-        //     $errores[]="La imagen es demasiado pesada";
-        // }
+         if(!$this->imagen){
+            self::$errores[]='La imagen es obligatoria';
+         }
+         
 
         return self::$errores;
     }
@@ -119,5 +113,34 @@ class Propiedad{
 
     public function setImagen($imagen){
         $this->imagen=$imagen;
+    }
+    public static function all(){
+        $query = "SELECT * FROM propiedades";
+        $all=self::consultarSQL($query);
+        return $all;
+    }
+
+    public static function consultarSQL($query){
+        //Consultar la base de datos
+        $resultado=self::$db->query($query);
+        //Iterar los resultados
+        $array=[];
+        while($propiedad = $resultado->fetch_assoc()){
+            
+            $array[]=self::crearObjeto($propiedad);
+        }
+
+        //debuguear($array);
+        
+        //Liberar la memoria
+        $resultado->free();
+
+        //retornar los resultados
+        return $array;
+    }
+    protected static function crearObjeto($propiedad){
+        $objeto=new self($propiedad);
+        return $objeto;
+        //debuguear($objeto);
     }
 }

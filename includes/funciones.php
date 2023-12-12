@@ -1,11 +1,11 @@
 <?php 
     define('TEMPLATES_URL', __DIR__.'\templates');
     define('FUNCIONES','funciones.php');
-    define('CARPETA_IMAGENES','');
+    define('CARPETA_IMAGENES','/apache/htdocs/bienes_raices/imagenes/');
     
 function incluirTemplate( string $nombre, bool $inicio=false){
     //echo TEMPLATES_URL."/$nombre.php";
-    include TEMPLATES_URL."/$nombre.php";
+    include '/apache/htdocs/bienes_raices/includes/templates'."/$nombre.php";
 }
 
 function isAuth(){
@@ -23,4 +23,9 @@ function debuguear($var){
     echo '<pre>';
         var_dump($var);
     echo '</pre>';
+}
+
+function s($html): string{
+    $s=htmlspecialchars($html);
+    return $s;
 }
