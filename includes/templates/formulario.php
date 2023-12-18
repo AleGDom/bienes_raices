@@ -1,3 +1,11 @@
+<?php
+
+    use App\Vendedores;
+
+    $vendedores=Vendedores::all();
+     
+
+?>
 <fieldset>
             <legend>Informacion General de la propiedad</legend>
 
@@ -9,6 +17,10 @@
 
             <label for="img">Imagen</label>
             <input type="file" name="imagen" id="imagen" accept="image/jpeg, image/png">
+
+            <?php if($propiedad->imagen && file_exists(CARPETA_IMAGENES.$propiedad->imagen)): ?>
+                <img src="/bienes_raices/imagenes/<?php echo $propiedad->imagen?>" alt="" class="imagen-small">
+            <?php endif; ?>
 
             <label for="desc">Descripcion</label>
             <textarea name="descripcion" id="descripcion" cols="30" rows="10"><?php echo s($propiedad->descripcion); ?></textarea>
@@ -27,9 +39,9 @@
             <legend>Vendedor</legend>
             <select name="vendedores_id" id="vendedor">
                 <option value="" selected disabled>-- Selecciona --</option>
-                <?php while($row = mysqli_fetch_assoc($vendedores)) { ?>
-                    <option value=" <?php echo $row['id'] ?>"  <?php echo $propiedad->vendedores_id==$row['id'] ? "selected" : ''?> > <?php echo $row['nombre'].' '.$row['apellido']; ?> </option>
-                <?php }?>
+                <?php foreach($vendedores as $vendedor): ?>
+                    <option value=" <?php echo $vendedor->id ?>"  <?php echo $propiedad->vendedores_id==$vendedor->id ? "selected" : ''?> > <?php echo $vendedor->nombre.' '.$vendedor->apellido; ?> </option>
+                <?php endforeach;?>
             </select>
             
         </fieldset>

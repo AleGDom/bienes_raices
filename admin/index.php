@@ -3,40 +3,39 @@
     require '../includes/app.php';
 
     use App\Propiedad;
-    
+    use App\Vendedores;
 
     $propiedades=Propiedad::all();
-    
-
-    
-    
-
+    $vendedores=Vendedores::all();
+   
+   
     isAuth();
-
-    
-    
 
     $resultado = $_GET['resultado'];
     
 
     if($_SERVER['REQUEST_METHOD']==='POST'){
         $id=$_POST['id'];
-        $id=filter_var($id,FILTER_VALIDATE_INT);
-
+        debuguear($_POST);
         if($id){
-                $imgquery="SELECT imagen FROM propiedades WHERE id=$id";
-                $resimg=mysqli_query($db,$imgquery);
-                $nombreimg=mysqli_fetch_assoc($resimg);
-                unlink('../imagenes/'.$nombreimg['imagen']);
-
-            $query = "DELETE FROM propiedades WHERE id=$id";
-            $resultado = mysqli_query($db,$query);
-
-            if($resultado){
-                
-                header('Location:index.php');
+            debuguear($id);
+            $tipo=$_POST['tipo'];
+            if(ValidarTipo($tipo)){
+                debuguear('Es valido');
+                if($tipo=="propiedad"){
+                    $propiedad=Propiedad::find($id);
+                    $propiedad->eliminar();
+                } else{
+                    
+                    $vendedor=Vendedores::find($id);
+                    $vendedor->eliminar();
+                }
+            }
+            else{
+                debuguear('No es valido');
             }
         }
+        
     }
     
     incluirTemplate('header');
@@ -51,6 +50,8 @@
         <div class="alerta exito">La Propiedad se Actualizo correctamente</div>
     <?php endif; ?>
     <a class="boton-verde" href="propiedades/crear.php">Nueva propiedad</a>
+    <a class="boton-amarillo-inline" href="vendedores/crear.php">Nuevo Vendedor</a>
+    <h2>Propiedades</h2>
     <table class="propiedades">
         <thead>
             <tr>
@@ -73,6 +74,7 @@
                     
                     <form method="POST"  class="w-100">
                         <input type="hidden" name="id" id="id" value="<?php echo $propiedad->id; ?>">
+                        <input type="hidden" name="tipo" id="tipo" value="propiedad">
                         <input type="submit" value="Eliminar" class="boton-rojo">
                     </form>
                     <a href="propiedades/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-amarillo">Actualizar</a>
@@ -81,6 +83,38 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    <h2>Vendedores</h2>
+
+    <table class="propiedades">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombres</th>
+                <th>Telefono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <?php foreach($vendedores as $vendedor ): ?>
+                <tr>
+                <td><?php echo $vendedor->id; ?></td>
+                <td><?php echo $vendedor->nombre." ".$vendedor->apellido; ?></td>
+                <td><?php echo $vendedor->telefono; ?></td>
+                <td>
+                    
+                    <form method="POST"  class="w-100">
+                        <input type="hidden" name="id" id="id" value="<?php echo $vendedor->id; ?>">
+                        <input type="hidden" name="tipo" id="tipo" value="vendedor">
+                        <input type="submit" value="Eliminar" class="boton-rojo">
+                    </form>
+                    <a href="vendedores/actualizar.php?id=<?php echo $vendedor->id; ?>" class="boton-amarillo">Actualizar</a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
 </main>
 <?php 
     mysqli_close($db);

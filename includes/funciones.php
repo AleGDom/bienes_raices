@@ -29,3 +29,9 @@ function s($html): string{
     $s=htmlspecialchars($html);
     return $s;
 }
+
+function ValidarTipo($tipo){
+    $tipos=['propiedad','vendedor'];
+    
+    return in_array($tipo,$tipos);
+}

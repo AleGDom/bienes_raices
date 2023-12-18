@@ -4,26 +4,14 @@ require '../../includes/app.php';
 use App\Propiedad;
 use Intervention\Image\ImageManagerStatic as Image;
 
-
-
-//
-
 isAuth();
-
 
 //BASE DE DATOS
     $errores=Propiedad::getErrores();
-    $db=conectarDB();
-   
- 
-    $queryVendedores="SELECT * FROM vendedores";
-    $vendedores=mysqli_query($db,$queryVendedores);
-    debuguear(count($errores));
-    
-   
 
     if($_SERVER["REQUEST_METHOD"]==="POST"){
         $propiedad =  new Propiedad($_POST);
+        
         //generar nombre unico
         $nombreImagen=md5(uniqid(rand(),true)).".jpg";
         //crear carpeta   
@@ -53,15 +41,7 @@ isAuth();
             
             //Subir la imagen al servidor
             $image->save($carpetaImagenes.$nombreImagen);
-            $resultado = $propiedad->guardar();
-            
-            
-            
-
-        if($resultado){
-            header('Location: /bienes_raices/admin/index.php?resultado=1');
-        }
-
+            $propiedad->guardar();
         }
         
     }
